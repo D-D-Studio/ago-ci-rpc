@@ -1,6 +1,6 @@
 use actix_web::{Responder, web};
 use uuid::Uuid;
-use crate::responses::default_response::DefaultResponse;
+use crate::responses::default_response::{DefaultResponse, ResponseStatus};
 use crate::utils::{directory_exists, file_exists, run_command_with_path};
 
 pub async fn deploy(id: web::Path<String>) -> impl Responder {
@@ -12,7 +12,7 @@ pub async fn deploy(id: web::Path<String>) -> impl Responder {
 
     if !directory_exists(dir_path.clone()).await || !file_exists(file_path).await {
         let response = DefaultResponse {
-            status: "Error".to_string(),
+            status: ResponseStatus::Error,
             message: "Container not found!".to_string(),
         };
 

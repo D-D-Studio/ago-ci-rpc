@@ -1,10 +1,12 @@
 mod utils;
 mod handlers;
 mod responses;
+mod middlewares;
 
 use actix_web::{App, HttpServer, web};
 use crate::handlers::update::update;
 use crate::handlers::deploy::deploy;
+use crate::middlewares::auth::Auth;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -12,6 +14,7 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(|| {
         App::new()
+            .wrap(Auth)
             .service(
                 web::scope("/container")
                     .route("/update", web::get().to(update))
