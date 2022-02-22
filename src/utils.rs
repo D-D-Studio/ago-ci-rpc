@@ -16,10 +16,19 @@ pub async fn run_command(cmd: String) -> Result<ExitStatus> {
 }
 
 pub async fn run_command_with_path(cmd: String, path: String) -> Result<ExitStatus> {
+    run_command_with_path_and_env(cmd, path, vec![]).await
+}
+
+pub async fn run_command_with_path_and_env(
+    cmd: String,
+    path: String,
+    envs: Vec<(String, String)>,
+) -> Result<ExitStatus> {
     unblock(|| {
         Command::new("sh")
             .arg("-c")
             .arg(cmd)
+            .envs(envs)
             .current_dir(path)
             .status()
     }).await

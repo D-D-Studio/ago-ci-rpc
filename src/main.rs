@@ -18,7 +18,7 @@ async fn main() -> std::io::Result<()> {
             .service(
                 web::scope("/container")
                     .route("/update", web::get().to(update))
-                    .route("/{id}/deploy", web::get().to(deploy))
+                    .route("/{id}/deploy/{tag}", web::get().to(deploy))
             )
     })
         .bind("0.0.0.0:3000")?
