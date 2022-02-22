@@ -45,13 +45,13 @@ Authorization: qwerty123
 ```
 
 ### Deploy container
-`GET /container/{container-name}/deploy`
+`GET /container/{container-name}/deploy/{container-tag}`
 
-Deploy `{contaner-name}` container.
+Deploy `{contaner-name}` container with `{conatner-tag}` tag.
 
 Example:
 ```http request
-GET /contaner/ago-backend/deploy
+GET /contaner/ago-backend/deploy/master
 Accept: application/json
 Authorization: qwerty123
 ```
