@@ -47,8 +47,8 @@ impl<S, B> Service for AuthMiddleware<S> where
         let next = self.service.call(req);
 
         Box::pin(async move {
-            if let Some(t) = headers.get("Authorization") {
-                if t == env!("SECRET_TOKEN") {
+            if let Some(token) = headers.get("Authorization") {
+                if token == env!("SECRET_TOKEN") {
                     return Ok(next.await?);
                 }
             }

@@ -31,12 +31,13 @@ impl DefaultResponse {
                 status: ResponseStatus::InternalError,
                 message: e.to_string(),
             },
-            Ok(r) => match r.success() {
-                true => DefaultResponse {
+            Ok(r) => if r.success() {
+                DefaultResponse {
                     status: ResponseStatus::Ok,
                     message: success_message.to_string(),
-                },
-                false => DefaultResponse {
+                }
+            } else {
+                DefaultResponse {
                     status: ResponseStatus::InternalError,
                     message: r.to_string(),
                 }
