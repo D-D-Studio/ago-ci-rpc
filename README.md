@@ -9,6 +9,7 @@ RPC Server for continuous integration
 * [API](#api)
   * [Update CI repository](#update-ci-repository)
   * [Deploy container](#deploy-container)
+* [Service Configuration Example](#service-configuration-example)
 
 ## Requirements
 Rust (>=1.55.0)
@@ -54,5 +55,24 @@ Example:
 GET /contaner/ago-backend/deploy/master
 Accept: application/json
 Authorization: qwerty123
+```
+
+## Service Configuration Example
+Example of `{CI_REPO}` structure:
+```
+├── ago-backend
+│   ├── service.yml 
+```
+
+Example of `./ago-backend/service.yml`:
+```yaml
+version: '3.8'
+
+services:
+  ago-backend:
+    image: registry.site.com/ago-backend:${CI_TAG}
+    deploy:
+      mode: replicated
+      replicas: 1
 ```
 
